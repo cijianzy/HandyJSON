@@ -2,5 +2,5 @@
 
 set -e
 
-xcodebuild -workspace HandyJSON.xcworkspace -scheme "HandyJSON iOS" -destination "platform=iOS Simulator,name=iPhone 6" test
+xcodebuild -project HandyJSON.xcodeproj -scheme "HandyJSONTests" -destination "platform=iOS Simulator,name=iPhone 6" test
 
