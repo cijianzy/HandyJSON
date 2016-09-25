@@ -3,7 +3,8 @@
 HandyJSON是一个Swift编写的`JSON-对象间`序列化、反序列化库，用法简单，类型支持完善。
 
 [![Build Status](https://travis-ci.org/cijianzy/HandyJSON.svg?branch=cijian_master)](https://travis-ci.org/SnapKit/SnapKit)
-
+[![Cocoapods Version](https://img.shields.io/cocoapods/v/HandyJSON.svg?style=flat)](http://cocoadocs.org/docsets/HandyJSON)
+[![Cocoapods Platform](https://img.shields.io/cocoapods/p/HandyJSON.svg?style=flat)](http://cocoadocs.org/docsets/HandyJSON)
 
 ## Feature
 
