@@ -1,28 +1,109 @@
 # HandyJSON
 
-HandyJSON是一个Swift编写的`JSON-对象间`序列化、反序列化库，用法简单，类型支持完善。
+HandyJSON is a framework written in Swift which to make converting model objects(classes/structs) to and from JSON easy on iOS.
 
-[![Build Status](https://travis-ci.org/cijianzy/HandyJSON.svg?branch=cijian_master)](https://travis-ci.org/SnapKit/SnapKit)
+Compared with others, the most significant feature of HandyJSON is that it does not need the objects inherit from NSObject(**not using KVC but reflection**), neither implements a 'mapping' function(**use pointer to achieve property assignment**).
+
+[![Build Status](https://travis-ci.org/alibaba/HandyJSON.svg?branch=master)](https://travis-ci.org/alibaba/HandyJSON)
 [![Cocoapods Version](https://img.shields.io/cocoapods/v/HandyJSON.svg?style=flat)](http://cocoadocs.org/docsets/HandyJSON)
 [![Cocoapods Platform](https://img.shields.io/cocoapods/p/HandyJSON.svg?style=flat)](http://cocoadocs.org/docsets/HandyJSON)
+[![Codecov branch](https://img.shields.io/codecov/c/github/alibaba/HandyJSON/master.svg?style=flat)](https://codecov.io/gh/alibaba/HandyJSON/branch/master)
 
-## Feature
+## Sample Code
 
-* 支持`struct`和`class`;
+### Deserialization
 
-* 支持大部分基本类型、组合类型、嵌套类型、可选类型;
+```
+struct Animal: HandyJSON {
+    var name: String?
+    var height: Int?
+}
 
-* 自动使用对象的字段名称在JSON中取值，而不需要手动指定Mapping方法;
+if let cat = JSONDeserializer<Animal>.deserializeFrom(json) {
+    print(cat)
+}
+```
 
-* 支持自定义映射关系和解析函数;
+### Serialization
 
-* 支持指定从JSON的某个节点开始反序列化;
+```
+class Animal {
+    var name: String?
+    var height: Int?
 
-* 支持字段类型自适应，如String到Int、Int到String等的转换;
+    init(name: String, height: Int) {
+        self.name = name
+        self.height = height
+    }
+}
+
+let cat = Animal(name: "cat", height: 30)
+
+print(JSONSerializer.serializeToJSON(cat)!)
+print(JSONSerializer.serializeToJSON(cat, prettify: true)!)
+```
+
+# Content
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+    - [Cocoapods](#cocoapods)
+- [Deserialization](#deserialization)
+    - [The Basics](#the-basics)
+    - [Optional, ImplicitlyUnwrappedOptional, Collectiones and so on](optional-implicitlyunwrappedoptional-collectiones-and-so-on)
+    - [Designated Path](#designated-path)
+    - [Composition Object](#composition-object)
+    - [Inheritance Object](#inheritance-object)
+    - [Custom Mapping](#custom-mapping)
+    - [Supported Property Type](#supported-property-type)
+- [Serialization](#serialization)
+    - [The Basics](#the-basics)
+    - [Complex Object](#complex-object)
+- [Compatibility](#compatibility)
+- [To Do](#to-do)
+
+# Features
+
+* Serialize/Deserialize Object/JSON to/From JSON/Object (classes and structs)
+
+* Support almost all types in Swift
+
+* Naturally use object property name for mapping, no need to specify a mapping relationship
+
+* Custom transformations for mapping
+
+* Type-Adaption, such as string json field maps to int property, int json field maps to string property
+
+# Requirements
+
+* iOS 8.0+
+
+* Swift 2.3+
+
+# Installation
+
+## Cocoapods
+
+Add the following lines to your podfile:
+
+```
+pod 'HandyJSON', '~> 0.2.0'
+```
+
+Then, run the following command:
+
+```
+$ pod install
+```
+
+# Deserialization
 
 ## The Basics
 
-Swift类实现`HandyJSON`协议(要求实现一个`init()`方法)后，就能从JSON文本进行反序列化了:
+To support deserialization from JSON, a class/struct need to conform to 'HandyJSON' protocol. It's truly protocol, not some class inherited from NSObject.
+
+To conform to 'HandyJSON', a class need to implement an empty initializer.
 
 ```
 class Animal: HandyJSON {
@@ -40,7 +121,7 @@ if let animal = JSONDeserializer<Animal>.deserializeFrom(jsonString) {
 }
 ```
 
-如果是`struct`，则不需要实现`init()`方法：
+For struct, since the compiler privide a default empty initializer, we use if for free.
 
 ```
 struct Animal: HandyJSON {
@@ -56,9 +137,11 @@ if let animal = JSONDeserializer<Animal>.deserializeFrom(jsonString) {
 }
 ```
 
-## Optional/ImplicitWrappedOptional/Collection
+But also notice that, if you have a designated initializer to override the default one in the struct, you should explicitly declare an empty one.
 
-`HandyJSON`支持属性为隐式可选、可选、数组类型、嵌套集合类型、Objective-C基本类型等的类：
+## Optional, ImplicitlyUnwrappedOptional, Collections and so on
+
+'HandyJSON' support classes/structs composed of `optional`, `implicitlyUnwrappedOptional`, `array`, `dictionary`, `objective-c base type`, `nested type` etc. properties.
 
 ```
 struct Cat: HandyJSON {
@@ -79,7 +162,7 @@ if let cat = JSONDeserializer<Cat>.deserializeFrom(jsonString) {
 
 ## Designated Path
 
-可以为`HandyJSON`指定从JSON的某个节点开始反序列化:
+`HandyJSON` supports deserialization from designated path of JSON.
 
 ```
 struct Cat: HandyJSON {
@@ -96,7 +179,7 @@ if let cat = JSONDeserializer<Cat>.deserializeFrom(jsonString, designatedPath: "
 
 ## Composition Object
 
-类中非基本类型的属性，也需要实现`HandyJSON`协议，才能进行反序列化:
+Notice that all the properties of a class/struct need to deserialized should be type conformed to `HandyJSON`.
 
 ```
 struct Component: HandyJSON {
@@ -119,7 +202,7 @@ if let composition = JSONDeserializer<Composition>.deserializeFrom(jsonString) {
 
 ## Inheritance Object
 
-有继承关系的类，需要继承链上的类都实现`HandyJSON`协议:
+A subclass need deserialization, it's superclass need to conform to `HandyJSON`.
 
 ```
 class Animal: HandyJSON {
@@ -143,9 +226,9 @@ if let cat = JSONDeserializer<Cat>.deserializeFrom(jsonString) {
 }
 ```
 
-## Customize Mapping
+## Custom Mapping
 
-`HandyJSON`允许你自行定义映射到类属性的`Key`，和解析的方法，只需要在实现`HandyJSON`协议时，实现一个可选函数mapping，在其中指定`Key`和解析方法:
+`HandyJSON` let you customize the key mapping to JSON fields, or parsing method of any property. All you need to do is implementing an optional `mapping` function, do things in it.
 
 ```
 class Cat: HandyJSON {
@@ -155,11 +238,11 @@ class Cat: HandyJSON {
 
     required init() {}
 
-    func mapping(mapper: Mapper) {
-        // 指定JSON中"cat_id"的值反序列化到"id"字段
+    func mapping(mapper: CustomMapper) {
+        // specify 'cat_id' field in json map to 'id' property in object
         mapper.specify(&id, name: "cat_id")
 
-        // 指定"parent"对应的JSON字段采用如下方式解析
+        // specify 'parent' field in json parse as following to 'parent' property in object
         mapper.specify(&parent) {
             let parentName = $0.characters.split{$0 == "/"}.map(String.init)
             return (parentName[0], parentName[1])
@@ -176,50 +259,89 @@ if let cat = JSONDeserializer<Cat>.deserializeFrom(jsonString) {
 
 ## Supported Property Type
 
-* `Int`
-
-* `Bool`
-
-* `Double`
-
-* `Float`
-
-* `String`
-
-* `NSString`
-
-* `NSNumber`
+* `Int`/`Bool`/`Double`/`Float`/`String`/`NSNumber`/`NSString`
 
 * `NSArray/NSDictionary`
 
-* `Int8/Int16/Int32/Int64`
+* `Int8/Int16/Int32/Int64`/`UInt8/UInt16/UInt23/UInt64`
 
-* `UInt8/UInt16/UInt23/UInt64`
+* `Optional<T>/ImplicitUnwrappedOptional<T>` // T is one of the above types
 
-* `Array<T>` // T是已经支持的类型
+* `Array<T>` // T is one of the above types
 
-* `Dictionary<String, T>` // T是已经支持的类型
+* `Dictionary<String, T>` // T is one of the above types
 
-* `Optional<T>` // T是已经支持的类型
+* Nested of aboves
 
-* `ImplicitlyUnwrappedOption<T>` // T是已经支持的类型
+# Serialization
 
-* 嵌套对象
+## The Basics
 
-* 自定义解析类型
+You need to do nothing special to support serialization. Define the class/struct, get the instances, then serialize it.
 
-* 有继承关系的类
+```
+class Animal {
+    var name: String?
+    var height: Int?
 
-## Compatibility
+    init(name: String, height: Int) {
+        self.name = name
+        self.height = height
+    }
+}
 
-已经在32位、64位、iOS 8.0+/9.0+ 机器测试通过。
+let cat = Animal(name: "cat", height: 30)
+print(JSONSerializer.serializeToJSON(cat)!)
+print(JSONSerializer.serializeToJSON(cat, prettify: true)!)
+```
 
-已经在Swift 2.2， Swift 3.0 beta上测试通过；
+## Complex Object
 
-## To Do
+Still need no extra effort.
 
-* 支持直接到基本类型、集合类型(即非对象类型)的反序列化；
+```
+enum Gender: String {
+    case Male = "male"
+    case Female = "Female"
+}
 
-* 支持对象到JSON的序列化;
+struct Subject {
+    var id: Int64?
+    var name: String?
 
-* 支持Swift 2.3， Swift 3.0;
+    init(id: Int64, name: String) {
+        self.id = id
+        self.name = name
+    }
+}
+
+class Student {
+    var name: String?
+    var gender: Gender?
+    var subjects: [Subject]?
+}
+
+let student = Student()
+student.name = "Jack"
+student.gender = .Female
+student.subjects = [Subject(id: 1, name: "math"), Subject(id: 2, name: "English"), Subject(id: 3, name: "Philosophy")]
+
+print(JSONSerializer.serializeToJSON(student)!)
+print(JSONSerializer.serializeToJSON(student, prettify: true)!)
+```
+
+# Compatibility
+
+* Pass test on 32-bit/64bit simulator/real device
+
+* Pass test on iOS 8.0+/9.0+/10.0+
+
+* Pass test while compiled with Swift 2.2、2.3、3.0 beta
+
+# To Do
+
+* Support non-object (such as basic type, array, dictionany) type deserializing directly
+
+* A branch for Swift 3.0
+
+* Support macOS
