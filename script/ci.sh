@@ -2,7 +2,7 @@
 
 set -e
 
-xcodebuild -scheme "HandyJSON iOS" -destination "platform=iOS Simulator,name=iPhone 6" test
+xcodebuild -scheme "HandyJSON iOS Tests" -destination "platform=iOS Simulator,name=iPhone 6" test
 
 xcodebuild -scheme "HandyJSON macOS" test
 
