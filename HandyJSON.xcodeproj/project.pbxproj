@@ -526,12 +526,11 @@
 					};
 					393E0FE01DA2494F00B3BC12 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = QBMN2BBW3K;
 						ProvisioningStyle = Automatic;
 					};
 					393E0FE81DA2494F00B3BC12 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = QBMN2BBW3K;
+						DevelopmentTeam = C6MQJCD834;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1133,7 +1132,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = QBMN2BBW3K;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1156,10 +1155,10 @@
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = QBMN2BBW3K;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1184,7 +1183,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QBMN2BBW3K;
+				DEVELOPMENT_TEAM = C6MQJCD834;
 				INFOPLIST_FILE = "HandyJSONTests/Info-macOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -1204,7 +1203,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QBMN2BBW3K;
+				DEVELOPMENT_TEAM = C6MQJCD834;
 				INFOPLIST_FILE = "HandyJSONTests/Info-macOS.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
