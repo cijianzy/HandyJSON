@@ -20,6 +20,7 @@
 import XCTest
 import HandyJSON
 
+
 class StructObjectTest: XCTestCase {
     
     override func setUp() {

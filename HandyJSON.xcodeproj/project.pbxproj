@@ -29,6 +29,9 @@
 		21F252B01D596A7000B214BB /* MemoryLayoutValidationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F252AF1D596A7000B214BB /* MemoryLayoutValidationTest.swift */; };
 		21F252B21D59718100B214BB /* AllBaseTypePropertyObjectTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F252B11D59718100B214BB /* AllBaseTypePropertyObjectTest.swift */; };
 		21F252B41D599DE200B214BB /* InvalidStateHandlingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F252B31D599DE200B214BB /* InvalidStateHandlingTest.swift */; };
+		392628A51DA4FDBD00B0C28D /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392628A41DA4FDBD00B0C28D /* PerformanceTests.swift */; };
+		392628A61DA4FDBD00B0C28D /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392628A41DA4FDBD00B0C28D /* PerformanceTests.swift */; };
+		392628A71DA4FDBD00B0C28D /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392628A41DA4FDBD00B0C28D /* PerformanceTests.swift */; };
 		393E0FA51DA165E300B3BC12 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B04671D56D2B50035A8E2 /* Converter.swift */; };
 		393E0FA61DA165E300B3BC12 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21520C501D3341FC00F53111 /* Extension.swift */; };
 		393E0FA71DA165E300B3BC12 /* HelpingMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2179B6B21D911DB4007B0320 /* HelpingMapper.swift */; };
@@ -145,6 +148,7 @@
 		21F252AF1D596A7000B214BB /* MemoryLayoutValidationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryLayoutValidationTest.swift; sourceTree = "<group>"; };
 		21F252B11D59718100B214BB /* AllBaseTypePropertyObjectTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllBaseTypePropertyObjectTest.swift; sourceTree = "<group>"; };
 		21F252B31D599DE200B214BB /* InvalidStateHandlingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvalidStateHandlingTest.swift; sourceTree = "<group>"; };
+		392628A41DA4FDBD00B0C28D /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		393E0F9B1DA1650E00B3BC12 /* HandyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HandyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		393E0FA31DA165CE00B3BC12 /* Info-watchOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-watchOS.plist"; sourceTree = "<group>"; };
 		393E0FB11DA2441E00B3BC12 /* HandyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HandyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -286,6 +290,7 @@
 				21F252B11D59718100B214BB /* AllBaseTypePropertyObjectTest.swift */,
 				21F252B31D599DE200B214BB /* InvalidStateHandlingTest.swift */,
 				39B36C231D8D780200AD2A3F /* SerializeToJSONTests.swift */,
+				392628A41DA4FDBD00B0C28D /* PerformanceTests.swift */,
 				392628001DA3E8E100B0C28D /* Supporting Files */,
 			);
 			path = HandyJSONTests;
@@ -662,6 +667,7 @@
 				2179B6B71D9121D4007B0320 /* ObjectiveCObjectTest.swift in Sources */,
 				21F252AC1D595F3900B214BB /* ClassObjectTest.swift in Sources */,
 				21F252B01D596A7000B214BB /* MemoryLayoutValidationTest.swift in Sources */,
+				392628A51DA4FDBD00B0C28D /* PerformanceTests.swift in Sources */,
 				21F252AA1D58BE9100B214BB /* NestObjectTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -704,6 +710,7 @@
 				393E0FD81DA2486C00B3BC12 /* MemoryLayoutValidationTest.swift in Sources */,
 				393E0FD91DA2486C00B3BC12 /* AllBaseTypePropertyObjectTest.swift in Sources */,
 				393E0FDA1DA2486C00B3BC12 /* InvalidStateHandlingTest.swift in Sources */,
+				392628A61DA4FDBD00B0C28D /* PerformanceTests.swift in Sources */,
 				393E0FDB1DA2486C00B3BC12 /* SerializeToJSONTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -733,6 +740,7 @@
 				393E10041DA249DC00B3BC12 /* MemoryLayoutValidationTest.swift in Sources */,
 				393E10051DA249DC00B3BC12 /* AllBaseTypePropertyObjectTest.swift in Sources */,
 				393E10061DA249DC00B3BC12 /* InvalidStateHandlingTest.swift in Sources */,
+				392628A71DA4FDBD00B0C28D /* PerformanceTests.swift in Sources */,
 				393E10071DA249DC00B3BC12 /* SerializeToJSONTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
