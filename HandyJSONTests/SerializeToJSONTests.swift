@@ -97,7 +97,7 @@ class serializeToJSONTests: XCTestCase {
             let dic = ["today": "Monday", "tomorrow": "Tuesday"]
         }
 
-        stringCompareHelper(JSONSerializer.serializeToJSON(object: ClassA()), "{\"name\":\"cijian\",\"day\":18,\"year\":1994,\"today\":\"Monday\",\"month\":4,\"dic\":{\"tomorrow\":\"Tuesday\",\"today\":\"Monday\"},\"time\":[\"Morning\",\"Afternoon\",\"Night\"]}")
+        stringCompareHelper(JSONSerializer.serializeToJSON(object: ClassA()), "{\"time\":[\"Morning\",\"Afternoon\",\"Night\"],\"today\":\"Monday\",\"year\":1994,\"name\":\"cijian\",\"dic\":{\"today\":\"Monday\",\"tomorrow\":\"Tuesday\"},\"day\":18,\"month\":4}")
     }
 
     func testForOptionalBasicValueType() {
@@ -156,7 +156,7 @@ class serializeToJSONTests: XCTestCase {
             var tomorrow = Week.Tuesday
         }
 
-        let expected = "{\"tomorrow\":\"Tuesday\",\"today\":\"Monday\"}"
+        let expected = "{\"today\":\"Monday\",\"tomorrow\":\"Tuesday\"}"
 
         let json = JSONSerializer.serializeToJSON(object: ClassA())
 
@@ -178,7 +178,7 @@ class serializeToJSONTests: XCTestCase {
             var today = Week.Monday
             var tomorrow = Week.Tuesday
         }
-        let expected = "{\"tomorrow\":\"Tuesday\",\"today\":\"Monday\"}"
+        let expected = "{\"today\":\"Monday\",\"tomorrow\":\"Tuesday\"}"
         stringCompareHelper(JSONSerializer.serializeToJSON(object: ClassA()), expected)
     }
 
@@ -196,7 +196,7 @@ class serializeToJSONTests: XCTestCase {
             var today = Week.Monday
             var tomorrow = Week.Tuesday
         }
-        let expected = "{\"tomorrow\":\"Tuesday\",\"today\":\"Monday\"}"
+        let expected = "{\"today\":\"Monday\",\"tomorrow\":\"Tuesday\"}"
         stringCompareHelper(JSONSerializer.serializeToJSON(object: ClassA()), expected)
     }
 
@@ -205,7 +205,7 @@ class serializeToJSONTests: XCTestCase {
             var dic = ["today": "Monday", "tomorrow": "Tuesday"]
         }
 
-        let expected = "{\"dic\":{\"tomorrow\":\"Tuesday\",\"today\":\"Monday\"}}"
+        let expected = "{\"dic\":{\"today\":\"Monday\",\"tomorrow\":\"Tuesday\"}}"
         stringCompareHelper(JSONSerializer.serializeToJSON(object: ClassA()), expected)
     }
 
@@ -234,9 +234,8 @@ class serializeToJSONTests: XCTestCase {
             }
         }
 
-        let expected = "{\"b\":{\"b\":111,\"a\":\"hello\",\"d\":{\"name1\":\"value1\",\"name2\":\"value2\"},\"c\":[1.0,2.1,3.0,4.0]},\"a\":{\"b\":111,\"a\":\"hello\",\"d\":{\"name1\":\"value1\",\"name2\":\"value2\"},\"c\":[1.0,2.1,3.0,4.0]}}"
+        let expected = "{\"b\":{\"b\":111,\"d\":{\"name2\":\"value2\",\"name1\":\"value1\"},\"c\":[1.0,2.1,3.0,4.0],\"a\":\"hello\"},\"a\":{\"b\":111,\"d\":{\"name2\":\"value2\",\"name1\":\"value1\"},\"c\":[1.0,2.1,3.0,4.0],\"a\":\"hello\"}}"
         stringCompareHelper(JSONSerializer.serializeToJSON(object: B()), expected)
-        print(JSONSerializer.serializeToJSON(object: B(), prettify: true)!)
     }
 
     func testForCompositionStruct() {
@@ -264,7 +263,7 @@ class serializeToJSONTests: XCTestCase {
             }
         }
 
-        let expected = "{\"b\":{\"b\":111,\"a\":\"hello\",\"d\":{\"name1\":\"value1\",\"name2\":\"value2\"},\"c\":[1.0,2.1,3.0,4.0]},\"a\":{\"b\":111,\"a\":\"hello\",\"d\":{\"name1\":\"value1\",\"name2\":\"value2\"},\"c\":[1.0,2.1,3.0,4.0]}}"
+        let expected = "{\"b\":{\"b\":111,\"d\":{\"name2\":\"value2\",\"name1\":\"value1\"},\"c\":[1.0,2.1,3.0,4.0],\"a\":\"hello\"},\"a\":{\"b\":111,\"d\":{\"name2\":\"value2\",\"name1\":\"value1\"},\"c\":[1.0,2.1,3.0,4.0],\"a\":\"hello\"}}"
         stringCompareHelper(JSONSerializer.serializeToJSON(object: B()), expected)
         print(JSONSerializer.serializeToJSON(object: B(), prettify: true)!)
     }
@@ -282,7 +281,7 @@ class serializeToJSONTests: XCTestCase {
             var dic = ["today": ClassB(value: 1), "tomorrow": ClassB(value: 2)]
         }
 
-        let expected = "{\"dic\":{\"tomorrow\":{\"value\":2},\"today\":{\"value\":1}}}"
+        let expected = "{\"dic\":{\"today\":{\"value\":1},\"tomorrow\":{\"value\":2}}}"
         stringCompareHelper(JSONSerializer.serializeToJSON(object: ClassA()), expected)
 
     }
@@ -293,14 +292,14 @@ class serializeToJSONTests: XCTestCase {
                 var dic = ["today": "Monday", "tomorrow": "Tuesday"]
             }
 
-            let expected = "{\"dic\":{\"tomorrow\":\"Tuesday\",\"today\":\"Monday\"}}"
+            let expected = "{\"dic\":{\"today\":\"Monday\",\"tomorrow\":\"Tuesday\"}}"
             stringCompareHelper(JSONSerializer.serializeToJSON(object: ClassA()), expected)
         }()
     }
 
     func testForSet() {
         let set: Set = [1, 2, 3, 4]
-        stringCompareHelper(JSONSerializer.serializeToJSON(object: set),  "[2,3,1,4]")
+        stringCompareHelper(JSONSerializer.serializeToJSON(object: set),  "[3,1,2,4]")
     }
 
     func testForClassWithSetProperty() {
@@ -308,7 +307,7 @@ class serializeToJSONTests: XCTestCase {
             let set: Set = [1, 2, 3, 4]
         }
 
-        stringCompareHelper(JSONSerializer.serializeToJSON(object: ClassA()), "{\"set\":[2,3,1,4]}")
+        stringCompareHelper(JSONSerializer.serializeToJSON(object: ClassA()), "{\"set\":[3,1,2,4]}")
     }
 
     func testForInheritedClass() {
@@ -333,7 +332,7 @@ class serializeToJSONTests: XCTestCase {
             }
         }
 
-        let expected = "{\"b\":\"hello\",\"a\":1,\"d\":[false,true,false],\"c\":123.45}"
+        let expected = "{\"d\":[false,true,false],\"b\":\"hello\",\"c\":123.45,\"a\":1}"
         stringCompareHelper(JSONSerializer.serializeToJSON(object: B()), expected)
     }
 }
